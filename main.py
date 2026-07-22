@@ -6,7 +6,6 @@ from datetime import datetime
 
 
 def main():
-    # 1. EN BAŞARILI MODEL YOLU (v6-7)
     model_path = r"runs\detect\hava_savunma_unsuru_v6-7\weights\best.pt"
     model = YOLO(model_path)
     sinif_isimleri = model.names
@@ -14,7 +13,6 @@ def main():
     veri_klasoru = r"C:\Users\metro\Desktop\Hava_Savunma_Tespit\test_verileri"
     csv_dosyasi = "toplu_tespit_raporu.csv"
 
-    # CSV Başlıklarını yaz
     with open(csv_dosyasi, mode='w', newline='', encoding='utf-8') as dosya:
         yazici = csv.writer(dosya)
         yazici.writerow(['Dosya_Adi', 'Tarih_Saat', 'Kare_No', 'Sinif', 'Hedef_ID', 'Guven(%)', 'X', 'Y', 'Durum'])
@@ -31,7 +29,6 @@ def main():
         print(f"İŞLENİYOR: {dosya_adi}")
 
         if not is_video:
-            # FOTOĞRAF İŞLEME
             results = model.predict(source=dosya_yolu, conf=0.5, device=0, verbose=False)
             annotated_frame = draw_status(results[0], results[0].plot())
 
@@ -39,7 +36,6 @@ def main():
             cv2.imshow("Otonom Tarama", annotated_frame)
             cv2.waitKey(0)
         else:
-            # VİDEO İŞLEME
             cap = cv2.VideoCapture(dosya_yolu)
             while cap.isOpened():
                 success, frame = cap.read()
@@ -60,7 +56,6 @@ def main():
 
 
 def draw_status(result, frame):
-    """Görsel üzerine Durum bilgisini işler."""
     boxes = result.boxes
     if boxes is not None and len(boxes) > 0:
         mesaj = "Hava Savunma Unsuru Tespit Edildi"
@@ -88,7 +83,6 @@ def self_save_results(result, dosya_adi, kare_no, csv_yolu, sinif_isimleri):
                 yazici.writerow([dosya_adi, datetime.now().strftime("%Y-%m-%d %H:%M:%S"), kare_no,
                                  sinif_isimleri[cls_id], track_id, conf, int(xywh[0]), int(xywh[1]), durum])
         else:
-            # Hedefin olmadığı anları da raporluyoruz
             yazici.writerow(
                 [dosya_adi, datetime.now().strftime("%Y-%m-%d %H:%M:%S"), kare_no, "N/A", "N/A", 0, 0, 0, durum])
 
