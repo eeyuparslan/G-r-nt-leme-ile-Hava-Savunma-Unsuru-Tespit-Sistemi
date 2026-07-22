@@ -13,9 +13,9 @@ Sistem, gerçek dünya operasyonel şartlarına uygun olarak **iki aşamalı (Ca
 ## 📊 Başarım Analizi ve Metrikler
 Modelin **102 adet test görseli** üzerinden elde ettiği operasyonel başarım sonuçları:
 
-* **Genel Doğruluk (Accuracy):** %83.33
-* **Tehdit Yakalama Oranı (Recall):** %82.14 *(Sahadaki tehditleri kaçırmama hassasiyeti)*
-* **Güvenilirlik Oranı (Precision):** %86.79 *(Yanlış alarm üretmeme kararlılığı)*
+* ** Accuracy:** %83.33
+* ** Recall:** %82.14 
+* ** Precision:** %86.79 
 
 ## 🗂️ Veri Seti Yapısı
 * **Taban Veri Seti:** Modelin başlangıç eğitimi için Roboflow Universe üzerinden temin edilen açık kaynaklı topluluk verileri kullanılmıştır.
